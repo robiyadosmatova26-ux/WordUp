@@ -4,7 +4,7 @@
   3) supabase.sql faylidagi SQL ni SQL Editor'da ishga tushiring.
 */
 const SUPABASE_URL = "https://crcolnkwgqlhhwnmxvil.supabase.co";
-const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+const SUPABASE_KEY = "sb_publishable_oldmqgI-JtJ5SPzfUxLn8A_vnfT_Bfy";
 
 const demoWords = [
   {word:"abandon",meaning:"tark etmoq",pron:"/əˈbændən/",example:"He decided to abandon the plan.",level:"B1"},
