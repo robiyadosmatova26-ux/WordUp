@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WordUp — Inglizcha so‘z yodlash</title>
+  <meta name="description" content="WordUp — inglizcha so‘zlarni kartochka va quiz orqali yodlash.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#" onclick="show('learn');return false">Word<span>Up</span></a>
+  <div id="userArea" class="user-area">
+    <button class="ghost" onclick="openAuth('login')">Kirish</button>
+    <button class="primary small" onclick="openAuth('signup')">Ro‘yxatdan o‘tish</button>
+  </div>
+</header>
+
+<main>
+  <section id="authNotice" class="notice">
+    <b>Shaxsiy progress kerakmi?</b>
+    <span>Ro‘yxatdan o‘tsang, qo‘shgan so‘zlaring va natijalaring akkaunting bilan saqlanadi.</span>
+    <button class="primary small" onclick="openAuth('signup')">Boshlash</button>
+  </section>
+
+  <section class="hero">
+    <div class="eyebrow">ENGLISH VOCABULARY</div>
+    <h1>So‘zlarni <span>yodla.</span><br>Bilimingni oshir.</h1>
+    <p>Kartochka, talaffuz, quiz va shaxsiy so‘zlar bilan ingliz tilini muntazam o‘rgan.</p>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" onclick="show('learn',this)">📚 Yodlash</button>
+    <button class="tab" onclick="show('quiz',this)">🧠 Quiz</button>
+    <button class="tab" onclick="show('words',this)">📝 So‘zlarim</button>
+    <button class="tab" onclick="show('profile',this)">👤 Profil</button>
+  </nav>
+
+  <section id="learn" class="page active">
+    <div class="level-row">
+      <button class="level active" onclick="setLevel('all',this)">Barchasi</button>
+      <button class="level" onclick="setLevel('B1',this)">B1</button>
+      <button class="level" onclick="setLevel('B2',this)">B2</button>
+      <button class="level" onclick="setLevel('C1',this)">C1</button>
+    </div>
+    <div class="card">
+      <span id="badge" class="badge">B1</span>
+      <h2 id="word">abandon</h2>
+      <div id="pron" class="pron">/əˈbændən/</div>
+      <button class="sound" onclick="speak()">🔊</button>
+      <div id="meaning" class="meaning">••••••••</div>
+      <p id="example" class="example"></p>
+      <button id="reveal" class="dark" onclick="reveal()">Tarjimasini ko‘rsat</button>
+    </div>
+    <div class="actions">
+      <button class="hard" onclick="nextWord(false)">😕 Qiyin</button>
+      <button class="easy" onclick="nextWord(true)">😊 Bilaman</button>
+    </div>
+    <div class="counter"><span id="current">1</span> / <span id="count">1</span></div>
+  </section>
+
+  <section id="quiz" class="page">
+    <div class="panel">
+      <div class="quiz-top"><b>Quiz</b><span id="quizNo">1 / 10</span></div>
+      <h2 id="quizWord" class="quiz-word">abandon</h2>
+      <p class="muted center">To‘g‘ri tarjimani tanla:</p>
+      <div id="answers" class="answers"></div>
+      <button id="nextQuizBtn" class="dark wide" disabled onclick="nextQuiz()">Keyingi →</button>
+      <div id="quizResult"></div>
+    </div>
+  </section>
+
+  <section id="words" class="page">
+    <div class="panel">
+      <h2>➕ Yangi so‘z qo‘shish</h2>
+      <p class="muted">Akkauntga kirgan bo‘lsang, so‘zlaring online bazangda saqlanadi.</p>
+      <div class="grid2">
+        <input id="newWord" placeholder="English word">
+        <input id="newMeaning" placeholder="O‘zbekcha tarjimasi">
+        <input id="newPron" placeholder="Talaffuzi (ixtiyoriy)">
+        <select id="newLevel"><option>B1</option><option>B2</option><option>C1</option></select>
+      </div>
+      <input id="newExample" placeholder="Misol gap (ixtiyoriy)">
+      <button class="primary" onclick="addWord()">💾 So‘zni saqlash</button>
+    </div>
+    <div class="panel">
+      <h2>Mening so‘zlarim <span id="wordTotal" class="pill">0</span></h2>
+      <div id="myWords"></div>
+    </div>
+  </section>
+
+  <section id="profile" class="page">
+    <div class="panel profile">
+      <div class="avatar">W</div>
+      <h2 id="profileName">Mehmon</h2>
+      <p id="profileEmail" class="muted">Akkauntga kirmagansiz</p>
+      <div class="stats">
+        <div><b id="statLearned">0</b><span>Bilaman</span></div>
+        <div><b id="statWords">0</b><span>So‘zlarim</span></div>
+        <div><b id="statQuiz">0</b><span>Quiz ball</span></div>
+      </div>
+      <button id="logout" class="danger" onclick="logout()" style="display:none">Chiqish</button>
+    </div>
+  </section>
+</main>
+
+<footer>WordUp • Learn words, build your future 🚀</footer>
+
+<div id="authModal" class="modal hidden">
+  <div class="modal-card">
+    <button class="close" onclick="closeAuth()">×</button>
+    <h2 id="authTitle">Kirish</h2>
+    <p id="authText" class="muted">Email va parolingizni kiriting.</p>
+    <input id="authEmail" type="email" placeholder="Email">
+    <input id="authPassword" type="password" placeholder="Parol">
+    <button id="authBtn" class="primary wide" onclick="submitAuth()">Kirish</button>
+    <button id="switchAuth" class="link" onclick="switchAuth()">Ro‘yxatdan o‘tish</button>
+    <p id="authMsg" class="msg"></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body>
+</html>
