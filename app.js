@@ -3,7 +3,7 @@
   2) Quyidagi ikkita qiymatni Supabase dashboarddan olingan URL va publishable/anon key bilan almashtiring.
   3) supabase.sql faylidagi SQL ni SQL Editor'da ishga tushiring.
 */
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_URL = "https://crcolnkwgqlhhwnmxvil.supabase.co";
 const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
 
 const demoWords = [
